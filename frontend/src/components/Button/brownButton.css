@@ -1,0 +1,23 @@
+.button.brown {
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #BA9E61;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 62px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    box-shadow: 0 4px 0 #b19655;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.button.brown:hover {
+    opacity: 0.9;
+}
+
+.button.brown:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #b19655;
+}

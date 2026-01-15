@@ -1,0 +1,40 @@
+.button {
+    font-family: "Noto Sans JP", sans-serif;
+    position: relative;
+    background: transparent;
+    border: 2px solid #000;
+    color: #000;
+    padding: 16px 58px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s ease;
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border: 2px solid #000;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: all 0.2s ease;
+}
+
+.button.tp:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: transparent;
+}
+
+.button.tp:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.button.tp:active {
+    transform: scale(0.98);
+}
