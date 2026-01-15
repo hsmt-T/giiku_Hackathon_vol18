@@ -1,3 +1,6 @@
+<!-- バージョン -->
+python 3.12
+
 <!-- 仮想環境作成 -->
 python -m venv venv
 
