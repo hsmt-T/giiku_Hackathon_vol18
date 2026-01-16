@@ -1,0 +1,76 @@
+/* 画面全体を覆う */
+.step-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999; /* ← 最前面 */
+}
+
+/* ダイアログ本体 */
+.step-dialog {
+    background: #fff;
+    width: 90%;
+    max-width: 720px;
+    border-radius: 16px;
+    padding: 32px;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ヘッダー */
+.step-dialog__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.step-dialog__title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 画像 */
+.step-dialog__image {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.step-dialog__image img {
+    max-width: 240px;
+    height: auto;
+}
+
+/* ボタン */
+.step-dialog__actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+/* ドット */
+.step-dialog__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #ccc;
+    border-radius: 50%;
+}
+
+.dot.active {
+    background: #a00;
+}
+
