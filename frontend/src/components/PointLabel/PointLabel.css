@@ -1,0 +1,25 @@
+.point-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background-color: #000000;
+    padding: 8px 16px;
+
+    border-radius: 6px;
+
+    color: #ffffff;
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+.point-label__text {
+    font-size: 14px;
+    letter-spacing: 0.1em;
+}
+
+.point-label__number {
+    font-family: "Noto Serif JP", serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+}
