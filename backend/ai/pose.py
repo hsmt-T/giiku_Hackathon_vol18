@@ -1,35 +1,16 @@
-# import cv2
-# import numpy as np
-# import mediapipe as mp
-
-# class PoseDetector:
-#     def __init__(self):
-#         self.mp_pose = mp.solutions.pose
-#         self.pose = self.mp_pose.Pose()
-
-#     def detect(self, image):
-#         results = self.pose.process(image)
-#         if not results.pose_landmarks:
-#             return None
-
-#         landmarks = results.pose_landmarks.landmark
-#         return {
-#             "nose": landmarks[self.mp_pose.PoseLandmark.NOSE],
-#             "left_shoulder": landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER],
-#             "right_shoulder": landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER],
-#             "left_wrist": landmarks[self.mp_pose.PoseLandmark.LEFT_WRIST],
-#             "right_wrist": landmarks[self.mp_pose.PoseLandmark.RIGHT_WRIST],
-#         }
-
+#pose.py
 import cv2
 import mediapipe as mp
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
 
+from ai.worship.clap import ClapDetector
+
 pose = mp_pose.Pose()
 
 cap = cv2.VideoCapture(0)
+clap_detector = ClapDetector()
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -57,6 +38,20 @@ while cap.isOpened():
                 thickness=2
             )
         )
+        # 👇 拍手判定
+        if clap_detector.update(results.pose_landmarks):
+            print("👏 拍手した！")
+
+            # 画面にも表示
+            cv2.putText(
+                frame,
+                "CLAP!",
+                (50, 80),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                2,
+                (0, 0, 255),
+                4
+            )
 
     cv2.imshow("Pose Debug", frame)
 
