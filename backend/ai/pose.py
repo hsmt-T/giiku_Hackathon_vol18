@@ -4,11 +4,11 @@ import mediapipe as mp
 from ai.worship.bow import BowDetector
 from ai.worship.throw import ThrowDetector
 from ai.worship.clap import ClapDetector
+from ai.worship.swing import SwingDetector
+
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
-
-
 
 pose = mp_pose.Pose()
 
@@ -16,6 +16,7 @@ cap = cv2.VideoCapture(0)
 bow_detector = BowDetector()
 clap_detector = ClapDetector()
 throw_detector = ThrowDetector()
+swing_detector = SwingDetector()
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -81,6 +82,18 @@ while cap.isOpened():
                 cv2.FONT_HERSHEY_SIMPLEX,
                 2,
                 (255, 255, 255),
+                4
+            )
+        if swing_detector.update(results.pose_landmarks):
+            print("👋 左右に大きく振った！")
+
+            cv2.putText(
+                frame,
+                "SWING!",
+                (50, 140),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                2,
+                (255, 0, 0),
                 4
             )
 
