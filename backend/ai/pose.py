@@ -1,6 +1,7 @@
 #pose.py
 import cv2
 import mediapipe as mp
+from ai.worship.bow import BowDetector
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
@@ -10,6 +11,7 @@ from ai.worship.clap import ClapDetector
 pose = mp_pose.Pose()
 
 cap = cv2.VideoCapture(0)
+bow_detector = BowDetector()
 clap_detector = ClapDetector()
 
 while cap.isOpened():
@@ -50,6 +52,19 @@ while cap.isOpened():
                 cv2.FONT_HERSHEY_SIMPLEX,
                 2,
                 (0, 0, 255),
+                4
+            )
+        if bow_detector.update(results.pose_landmarks):
+            print("🙇 お辞儀した！")
+
+        # cv2.rectangle(frame, (30, 160), (500, 260), (255, 0, 0), -1)
+            cv2.putText(
+                frame,
+                "BOW!",
+                (60, 240),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                2,
+                (255, 255, 255),
                 4
             )
 
