@@ -45,3 +45,7 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
+
+# SQLite DB (generated)
+*.db
+
