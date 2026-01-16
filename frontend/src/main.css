@@ -1,0 +1,16 @@
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: "Noto Serif JP", serif;
+    background-color: #000;
+}
+
+* {
+    box-sizing: border-box;
+}
