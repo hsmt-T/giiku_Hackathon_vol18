@@ -1,17 +1,19 @@
 import React from "react";
 import "./tparentButton.css";
 import "./brownButton.css";
+import "./redButton.css";
+import "./azukiButton.css"
 
 type Props = {
     label: string;
     onClick?: () => void;
-    variant?: "tp" | "brown";
+    variant?: "tp" | "brown" | "red" | "azuki";
 };
 
 const Button: React.FC<Props> = ({
     label,
     onClick,
-    variant = "tp",
+    variant,
 }) => {
     return (
         <button
