@@ -10,7 +10,7 @@ const Header = () => {
                 </div>
 
                 <nav className="header_nav">
-                    <Link to="/">Home</Link>
+                    <Link to="/">ホーム</Link>
                     <Link to="/">参拝</Link>
                     <Link to="/">おみくじ</Link>
                     <Link to="/">サイト概要</Link>
