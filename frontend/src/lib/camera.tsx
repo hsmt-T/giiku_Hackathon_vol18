@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
+type DetectResponse = {
+  detected: boolean;
+};
+
 type MotionResult = {
   clap: boolean;
   bow: boolean;
@@ -7,7 +11,27 @@ type MotionResult = {
   throw: boolean;
 };
 
-const Camera = () => {
+type MotionName = keyof MotionResult;
+
+const motionEndpoints: Record<MotionName, string> = {
+  clap: "clap",
+  bow: "bow",
+  swing: "swing",
+  throw: "throw",
+};
+
+const motionEmojis: Record<MotionName, string> = {
+  clap: "👏",
+  bow: "🙇",
+  swing: "🔄",
+  throw: "💴",
+};
+
+type CameraProps = {
+  detectMotion: MotionName; // ← ここで検知するモーションを指定
+};
+
+const Camera = ({ detectMotion }: CameraProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -17,29 +41,34 @@ const Camera = () => {
     swing: false,
     throw: false,
   });
-  useEffect(() => {
-    if (motion.clap) console.log("👏 clap detected");
-    if (motion.bow) console.log("🙇 bow detected");
-    if (motion.swing) console.log("🔄 swing detected");
-    if (motion.throw) console.log("💴 throw detected");
-  }, [motion]);
 
-  // ① カメラ起動
+  /* =========================
+   * 検知ログ（デバッグ用）
+   * ========================= */
+  useEffect(() => {
+    if (motion[detectMotion]) {
+      console.log(`${motionEmojis[detectMotion]} ${detectMotion} detected`);
+    }
+  }, [motion, detectMotion]);
+
+  /* =========================
+   * ① カメラ起動
+   * ========================= */
   useEffect(() => {
     let stream: MediaStream;
 
     const startCamera = async () => {
-      stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          width: 640,
-          height: 480,
-          facingMode: "user",
-        },
-        audio: false,
-      });
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 640, height: 480, facingMode: "user" },
+          audio: false,
+        });
 
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (e) {
+        console.error("カメラ起動失敗", e);
       }
     };
 
@@ -50,7 +79,9 @@ const Camera = () => {
     };
   }, []);
 
-  // ② フレーム送信
+  /* =========================
+   * ② モーション検知フレーム送信
+   * ========================= */
   const sendFrame = async () => {
     if (!videoRef.current || !canvasRef.current) return;
 
@@ -69,27 +100,39 @@ const Camera = () => {
     if (!blob) return;
 
     const formData = new FormData();
-    formData.append("image", blob); // ← FastAPI と一致
+    formData.append("image", blob);
 
     try {
-      const res = await fetch("http://localhost:8000/motion/frame", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `http://localhost:8000/motion/${motionEndpoints[detectMotion]}`,
+        { method: "POST", body: formData }
+      );
 
-      const data: MotionResult = await res.json();
-      setMotion(data);
+      const data: DetectResponse = await res.json();
+
+      if (data.detected) {
+        setMotion((prev) => ({ ...prev, [detectMotion]: true }));
+        setTimeout(
+          () => setMotion((prev) => ({ ...prev, [detectMotion]: false })),
+          1000
+        );
+      }
     } catch (e) {
-      console.error("motion error", e);
+      console.error(`${detectMotion} API error`, e);
     }
   };
 
-  // ③ 定期送信（300ms）
+  /* =========================
+   * ③ 定期送信（指定されたモーションだけ）
+   * ========================= */
   useEffect(() => {
     const id = setInterval(sendFrame, 100);
     return () => clearInterval(id);
-  }, []);
+  }, [detectMotion]);
 
+  /* =========================
+   * UI
+   * ========================= */
   return (
     <div style={{ textAlign: "center" }}>
       <h2>参拝モーション検知</h2>
@@ -98,22 +141,13 @@ const Camera = () => {
         ref={videoRef}
         autoPlay
         playsInline
-        style={{
-          width: 640,
-          borderRadius: 12,
-          border: "2px solid #aaa",
-        }}
+        style={{ width: 640, borderRadius: 12, border: "2px solid #aaa" }}
       />
 
-      {/* 送信用キャンバス */}
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
-      {/* 結果表示 */}
       <div style={{ fontSize: 120, marginTop: 16 }}>
-        {motion.clap && "👏 "}
-        {motion.bow && "🙇 "}
-        {motion.swing && "🔄 "}
-        {motion.throw && "💴 "}
+        {motion[detectMotion] && motionEmojis[detectMotion]}
       </div>
     </div>
   );

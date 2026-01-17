@@ -1,7 +1,7 @@
+# api/routers/motion.py
 from fastapi import APIRouter, UploadFile, File
 import cv2
 import numpy as np
-import time
 
 from ai.pose import pose
 from ai.worship.clap import ClapDetector
@@ -16,44 +16,41 @@ bow_detector = BowDetector()
 swing_detector = SwingDetector()
 throw_detector = ThrowDetector()
 
-EMPTY_RESULT = {
-    "clap": False,
-    "bow": False,
-    "swing": False,
-    "throw": False,
-}
-
-@router.post("/frame")
-async def receive_frame(image: UploadFile = File(...)):
-    contents = await image.read()
-
-    np_img = np.frombuffer(contents, np.uint8)
+def get_landmarks(image_bytes: bytes):
+    np_img = np.frombuffer(image_bytes, np.uint8)
     frame = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
-
-    # 🔥 サイズ縮小
     frame = cv2.resize(frame, (640, 360))
-
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = pose.process(rgb)
+    return results.pose_landmarks
 
-    if results.pose_landmarks is None:
-        return EMPTY_RESULT
+def result(detected: bool):
+    return {"detected": detected}
 
-    landmarks = results.pose_landmarks
+# 👏 拍手
+@router.post("/clap")
+async def detect_clap(image: UploadFile = File(...)):
+    landmarks = get_landmarks(await image.read())
+    detected = landmarks is not None and clap_detector.update(landmarks)
+    return result(detected)
 
-    clap = clap_detector.update(landmarks)
-    bow = bow_detector.update(landmarks)
+# 🙇 お辞儀
+@router.post("/bow")
+async def detect_bow(image: UploadFile = File(...)):
+    landmarks = get_landmarks(await image.read())
+    detected = landmarks is not None and bow_detector.update(landmarks)
+    return result(detected)
 
-    if bow:
-        swing = False
-        throw = False
-    else:
-        swing = swing_detector.update(landmarks)
-        throw = throw_detector.update(landmarks)
+# 🔄 腕振り
+@router.post("/swing")
+async def detect_swing(image: UploadFile = File(...)):
+    landmarks = get_landmarks(await image.read())
+    detected = landmarks is not None and swing_detector.update(landmarks)
+    return result(detected)
 
-    return {
-        "clap": clap,
-        "bow": bow,
-        "swing": swing,
-        "throw": throw,
-    }
+# 💴 投げる
+@router.post("/throw")
+async def detect_throw(image: UploadFile = File(...)):
+    landmarks = get_landmarks(await image.read())
+    detected = landmarks is not None and throw_detector.update(landmarks)
+    return result(detected)
