@@ -6,4 +6,4 @@ class Omikuji(Base):
     __tablename__ = "omikuji"
 
     id = Column(Integer, primary_key=True, index=True)
-    result = Column(String, nullable=False)
+    name = Column(String, nullable=False)
