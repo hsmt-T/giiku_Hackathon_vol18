@@ -1,10 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import TpButton from "../../components/Button/Button";
 import "./Home.css";
 import jinjaImg from "../../assets/jinja.png";
-import toriiImg from "../../assets/saisen.png";
-import StepDialog from "../../components/StepDialog/StepDialog";
 
 export const Home = () => {
+    const navigate = useNavigate();
     return (
         <section
             className="hero"
@@ -19,17 +19,11 @@ export const Home = () => {
 
                 <TpButton
                     label="参拝する"
-                    onClick={() => console.log("clicked")}
+                    onClick={() => navigate("../SampaiScreen/Sampai")}
                     variant="tp"
                 />
             </div>
-            <StepDialog
-                step="02"
-                title="5円玉を投げるように腕を振ってみよう"
-                image={toriiImg}
-                onPrev={() => console.log("prev")}
-                onNext={() => console.log("next")}
-            />
+            
         </section>
         
     );
