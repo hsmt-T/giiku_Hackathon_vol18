@@ -2,12 +2,16 @@ from fastapi import FastAPI
 from .db import engine, SessionLocal
 from .models import Base, Omikuji
 
+
 app = FastAPI()
 
 # DBテーブル作成
 Base.metadata.create_all(bind=engine)
 
 def seed_omikuji():
+    from .routers.omikuji import router as omikuji_router
+    app.include_router(omikuji_router)
+    
     db = SessionLocal()
     try:
         if db.query(Omikuji).count() > 0:
