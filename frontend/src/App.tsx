@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
 import Header from "./components/header/Header";
 import Camera from "./lib/camera";
+import { Result } from "./pages/Result/Result";
 
 function App() {
   return (
@@ -21,8 +22,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/result" element={<Result />} />
       </Routes>
-      <Camera/>
     </BrowserRouter>
   );
 }
