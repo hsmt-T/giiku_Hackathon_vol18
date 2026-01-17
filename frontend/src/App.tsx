@@ -7,6 +7,18 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+
+      {/* // 拍手だけ検知したい場合 */}
+      {/* <Camera detectMotion="clap"/> */}
+
+      {/* // 投げるだけ検知したい場合 */}
+      {/* <Camera detectMotion="throw" />  */}
+
+      {/* <Camera detectMotion="swing" />  */}
+      {/* <Camera detectMotion="bow" />  */}
+
+
+
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
