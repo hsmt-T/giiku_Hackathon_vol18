@@ -24,8 +24,8 @@ const motionEndpoints: Record<MotionName, string> = {
 const motionEmojis: Record<MotionName, string> = {
   clap: "02クリア👏",
   bow: "03クリア🙇",
-  swing: "04クリア🔄",
-  throw: "01クリア!!(5円玉)",
+  swing: "04クリア🔔",
+  throw: "01クリア🪙",
 };
 
 type CameraProps = {
@@ -116,6 +116,7 @@ const Camera = ({ detectMotion, onDetected }: CameraProps) => {
       const data: DetectResponse = await res.json();
 
       if (data.detected && !detectedRef.current) {
+        detectedRef.current = true;
         setMotion((prev) => ({ ...prev, [detectMotion]: true }));
         onDetected?.();
 
@@ -153,7 +154,7 @@ const Camera = ({ detectMotion, onDetected }: CameraProps) => {
 
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
-      <div style={{ fontSize: 120, color : "black" }}>
+      <div style={{ fontSize: 30, color : "gold", fontWeight: "bold", fontFamily: "'Noto Sans JP', sans-serif", }}>
         {motion[detectMotion] && motionEmojis[detectMotion]}
       </div>
     </div>
