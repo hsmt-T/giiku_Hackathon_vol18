@@ -19,7 +19,7 @@ export const Home = () => {
 
                 <TpButton
                     label="参拝する"
-                    onClick={() => navigate("../SampaiScreen/Sampai")}
+                    onClick={() => navigate("/sanpai")}
                     variant="tp"
                 />
             </div>

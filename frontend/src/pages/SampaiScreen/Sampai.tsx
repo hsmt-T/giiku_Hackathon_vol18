@@ -5,7 +5,7 @@ import Camera from "../../lib/camera";
 import steps from "../../types/step";
 import "./Sampai.css";
 
-const Sampai = () => {
+export const Sampai = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
     const [isFlowOpen, setIsFlowOpen] = useState(true);
@@ -30,9 +30,11 @@ const Sampai = () => {
         setCurrentStep(0);
     };
 
+    const motion =["?","throw","clap","bow","swing" ] 
+    const state = "throw"
     return (
         <div className="sampai">
-            <Camera />
+            <Camera detectMotion={state} /> 
 
             {isFlowOpen && !isCompleted && (
                 <StepDialog
@@ -57,5 +59,3 @@ const Sampai = () => {
         </div>
     );
 };
-
-export default Sampai;
