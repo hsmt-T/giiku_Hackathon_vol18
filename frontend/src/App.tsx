@@ -6,12 +6,12 @@ import Camera from "./lib/camera";
 function App() {
   return (
     <BrowserRouter>
-      {/* <Header /> */}
+      <Header />
 
       {/* // 拍手だけ検知したい場合 */}
       {/* <Camera detectMotion="clap"/> */}
 
-       {/* // 投げるだけ検知したい場合 */}
+      {/* // 投げるだけ検知したい場合 */}
       {/* <Camera detectMotion="throw" />  */}
 
       {/* <Camera detectMotion="swing" />  */}
@@ -19,9 +19,9 @@ function App() {
 
 
 
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
-      </Routes> */}
+      </Routes>
     </BrowserRouter>
   );
 }
