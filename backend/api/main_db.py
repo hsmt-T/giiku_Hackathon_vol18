@@ -12,7 +12,6 @@ def seed_omikuji():
     try:
         if db.query(Omikuji).count() > 0:
             return
-        
         names = ["大吉","中吉","小吉","吉","末吉","凶","大凶"]
         for name in names:
             db.add(Omikuji(name=name))
