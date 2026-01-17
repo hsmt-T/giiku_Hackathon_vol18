@@ -24,7 +24,7 @@ const motionEmojis: Record<MotionName, string> = {
   clap: "👏",
   bow: "🙇",
   swing: "🔄",
-  throw: "💴",
+  throw: "01クリア!!",
 };
 
 type CameraProps = {
@@ -114,7 +114,7 @@ const Camera = ({ detectMotion }: CameraProps) => {
         setMotion((prev) => ({ ...prev, [detectMotion]: true }));
         setTimeout(
           () => setMotion((prev) => ({ ...prev, [detectMotion]: false })),
-          1000
+          6000
         );
       }
     } catch (e) {
@@ -141,12 +141,12 @@ const Camera = ({ detectMotion }: CameraProps) => {
         ref={videoRef}
         autoPlay
         playsInline
-        style={{ width: 640, borderRadius: 12, border: "2px solid #aaa" }}
+        style={{ width: 900, borderRadius: 12, border: "1px solid #fff" }}
       />
 
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
-      <div style={{ fontSize: 120, marginTop: 16 }}>
+      <div style={{ fontSize: 120, color : "gold" }}>
         {motion[detectMotion] && motionEmojis[detectMotion]}
       </div>
     </div>
