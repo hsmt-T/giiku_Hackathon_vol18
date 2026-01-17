@@ -1,14 +1,73 @@
 .content {
     position: relative;
     z-index: 1;
-
-    max-width: 1200px;
-    padding: 10 48px;
-
-    color: #fff;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 40px 24px;
+    color: #000;
     text-align: center;
+    font-family: "Noto Serif JP", serif;
 }
 
-.omiuji_img {
+.header-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
 
+.result-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 0 30px 0;
+}
+
+.image-container {
+    margin-bottom: 30px;
+}
+
+.omikuji-img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    /* border: 4px solid #b71c1c; */
+    /* padding: 10px; */
+}
+
+.save-section {
+    margin-bottom: 40px;
+}
+
+.save-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0 20px 0;
+}
+
+.download-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+.download-btn:hover {
+    transform: scale(1.1);
+}
+
+.action-area {
+    margin-bottom: 60px;
+}
+
+.copyright {
+    font-size: 10px;
+    color: #666;
 }
