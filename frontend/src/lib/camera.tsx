@@ -4,6 +4,7 @@ type DetectResponse = {
   detected: boolean;
 };
 
+
 type MotionResult = {
   clap: boolean;
   bow: boolean;
@@ -21,19 +22,22 @@ const motionEndpoints: Record<MotionName, string> = {
 };
 
 const motionEmojis: Record<MotionName, string> = {
-  clap: "👏",
-  bow: "🙇",
-  swing: "🔄",
-  throw: "01クリア!!",
+  clap: "02クリア👏",
+  bow: "03クリア🙇",
+  swing: "04クリア🔄",
+  throw: "01クリア!!(5円玉)",
 };
 
 type CameraProps = {
   detectMotion: MotionName; // ← ここで検知するモーションを指定
+  onDetected?: () => void;
 };
 
-const Camera = ({ detectMotion }: CameraProps) => {
+const Camera = ({ detectMotion, onDetected }: CameraProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const detectedRef = useRef(false);
 
   const [motion, setMotion] = useState<MotionResult>({
     clap: false,
@@ -74,6 +78,7 @@ const Camera = ({ detectMotion }: CameraProps) => {
 
     startCamera();
 
+    
     return () => {
       stream?.getTracks().forEach((t) => t.stop());
     };
@@ -110,12 +115,14 @@ const Camera = ({ detectMotion }: CameraProps) => {
 
       const data: DetectResponse = await res.json();
 
-      if (data.detected) {
+      if (data.detected && !detectedRef.current) {
         setMotion((prev) => ({ ...prev, [detectMotion]: true }));
-        setTimeout(
-          () => setMotion((prev) => ({ ...prev, [detectMotion]: false })),
-          6000
-        );
+        onDetected?.();
+
+        setTimeout(() => {
+          detectedRef.current = false;
+          setMotion((prev) => ({ ...prev, [detectMotion]: false }));
+        },6000);
       }
     } catch (e) {
       console.error(`${detectMotion} API error`, e);
@@ -146,7 +153,7 @@ const Camera = ({ detectMotion }: CameraProps) => {
 
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
-      <div style={{ fontSize: 120, color : "gold" }}>
+      <div style={{ fontSize: 120, color : "black" }}>
         {motion[detectMotion] && motionEmojis[detectMotion]}
       </div>
     </div>
