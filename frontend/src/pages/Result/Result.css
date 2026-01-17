@@ -1,0 +1,14 @@
+.content {
+    position: relative;
+    z-index: 1;
+
+    max-width: 1200px;
+    padding: 10 48px;
+
+    color: #fff;
+    text-align: center;
+}
+
+.omiuji_img {
+
+}
