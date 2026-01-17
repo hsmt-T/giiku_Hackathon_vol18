@@ -7,10 +7,10 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Camera/>
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
+      <Camera/>
     </BrowserRouter>
   );
 }
