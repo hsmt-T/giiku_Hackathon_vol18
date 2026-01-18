@@ -7,6 +7,13 @@ import steps from "../../types/step";
 import "./Sampai.css";
 
 const motionOrder = ["throw", "clap", "bow", "swing"] as const;
+const motionEmojis: Record<MotionName, string> = {
+    throw: "01クリア🪙",
+    clap: "02クリア👏",
+    bow: "03クリア🙇",
+    swing: "",
+};
+
 type MotionName = typeof motionOrder[number];
 
 
@@ -17,6 +24,8 @@ export const Sampai = () => {
     const [isFlowOpen, setIsFlowOpen] = useState(true);
     const [motionIndex, setMotionIndex] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
+    const [showMotionText, setShowMotionText] = useState<MotionName | null>(null);
+
 
     const currentMotion = motionOrder[motionIndex];
 
@@ -39,11 +48,16 @@ export const Sampai = () => {
     };
 
     const handleMotionDetected = () => {
-    if (motionIndex < motionOrder.length - 1) {
-        setMotionIndex((prev) => prev + 1);
-    } else {
-         setIsFinished(true); // 全モーション完了
-    }
+        setShowMotionText(currentMotion);
+
+        setTimeout(() => {
+            setShowMotionText(null);
+        }, 2000);
+        if (motionIndex < motionOrder.length - 1) {
+            setMotionIndex((prev) => prev + 1);
+        } else {
+            setIsFinished(true); // 全モーション完了
+        }
     };
 
     return (
@@ -77,6 +91,12 @@ export const Sampai = () => {
                     onDetected={handleMotionDetected}
                 />
             )}
+            {showMotionText && (
+                <div style={{ fontSize: 65, textAlign: "center", marginTop: 80, color : "black", fontWeight: "bold", fontFamily: "'Noto Sans JP', sans-serif", }}>
+                    {motionEmojis[showMotionText]}
+                </div>
+            )}
+
 
             {isFinished && (
                 <CompleteDialog
