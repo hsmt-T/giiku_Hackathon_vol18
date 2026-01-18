@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import TpButton from "../../components/Button/Button";
 import "./Home.css";
 import jinjaImg from "../../assets/mainvisual.jpeg";
-import toriiImg from "../../assets/torii.png";
+import goenImg from "../../assets/goen.jpeg";
+import teawaseImg from "../../assets/teawase.png";
+import kaneImg from "../../assets/kane.jpeg";
 import daikitiImg from "../../assets/daikiti.png";
 import tyukitiImg from "../../assets/chukiti.png";
 import syokitiImg from "../../assets/shoukiti.png";
@@ -33,7 +35,7 @@ export const Home = () => {
                 <h2>正しい参拝の方法</h2>
                 <div className="lecture__wraper">
                     <div className="lecture__wrap">
-                        <span style={{ background: `url(${toriiImg})` }}></span>
+                        <span style={{ background: `url(${goenImg})` }}></span>
                         <div>
                             <p>step</p>
                             <h3>01</h3>
@@ -43,7 +45,7 @@ export const Home = () => {
                         </p>
                     </div>
                     <div className="lecture__wrap">
-                        <span style={{ background: `url(${toriiImg})` }}></span>
+                        <span style={{ background: `url(${teawaseImg})` }}></span>
                         <div>
                             <p>step</p>
                             <h3>01</h3>
@@ -53,7 +55,7 @@ export const Home = () => {
                         </p>
                     </div>{" "}
                     <div className="lecture__wrap">
-                        <span style={{ background: `url(${toriiImg})` }}></span>
+                        <span style={{ background: `url(${kaneImg})` }}></span>
                         <div>
                             <p>step</p>
                             <h3>01</h3>
