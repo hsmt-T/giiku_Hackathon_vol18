@@ -117,7 +117,6 @@
             div {
                 width: 400px;
                 height: 700px;
-                background-size: contain;
                 background-position: center;
             }
         }

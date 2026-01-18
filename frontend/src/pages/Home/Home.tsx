@@ -41,27 +41,29 @@ export const Home = () => {
                             <h3>01</h3>
                         </div>
                         <p>
-                            テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+                            「良いご縁がありますように」という願いが込められている、穴の空いた硬貨は「見通しがよい」という意味でも縁起が良いとされます。{" "}
                         </p>
                     </div>
                     <div className="lecture__wrap">
                         <span style={{ background: `url(${teawaseImg})` }}></span>
                         <div>
                             <p>step</p>
-                            <h3>01</h3>
+                            <h3>02</h3>
                         </div>
                         <p>
-                            テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+                            神様への感謝や呼びかけ、そして邪気払いのためで、
+                            音で神様を招き、神の霊力を呼び覚まし、
+                            感謝や喜びを表現する意味があります。
                         </p>
-                    </div>{" "}
+                    </div>
                     <div className="lecture__wrap">
                         <span style={{ background: `url(${kaneImg})` }}></span>
                         <div>
                             <p>step</p>
-                            <h3>01</h3>
+                            <h3>03</h3>
                         </div>
                         <p>
-                            テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+                            神社で鈴を鳴らすのは、邪気や穢れを祓い清め、神様を呼び寄せ、御霊（みたま）を鎮め、参拝者の心を神様に届けるためです{" "}
                         </p>
                     </div>
                 </div>
@@ -72,15 +74,15 @@ export const Home = () => {
                 <div className="omikuji__wrap">
                     <div>
                         <div style={{ background: `url(${daikitiImg})` }}></div>
-                    </div>
-                    <div>
                         <div style={{ background: `url(${tyukitiImg})` }}></div>
                         <div style={{ background: `url(${kitiImg})` }}></div>
-                        <div style={{ background: `url(${syokitiImg})` }}></div>
                     </div>
                     <div>
+                        <div style={{ background: `url(${syokitiImg})` }}></div>
                         <div style={{ background: `url(${suekitiImg})` }}></div>
                         <div style={{ background: `url(${kyouImg})` }}></div>
+                    </div>
+                    <div>
                         <div style={{ background: `url(${daikyouImg})` }}></div>
                     </div>
                 </div>
